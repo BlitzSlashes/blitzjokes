@@ -13,24 +13,27 @@ def search(ctx, limit):
 
 
 def generate_jokes():
-    view = 'yes'
-    while view == 'yes':
-        ctx = input('Enter a keyword for the jokes: ').lower()
-        count = input('How many jokes do you want?: ')
-        if not count:
-            count = 5
-        res = search(ctx, count)
-        if len(res):
-            print(
-                colored(f'Okay there were {len(res)} jokes about {ctx}...', color='green'))
-            data = "\n".join(res)
-            print(colored(data, color='yellow'))
-            view = input(
-                'Would you like to continue browsing the jokes?(yes/no): ')
-        else:
-            print(
-                colored(f"Uh oh there weren't any jokes containing {ctx}", color='red'))
-            view = input('Would you like to try again?(yes/no): ')
+    try:
+        view = 'yes'
+        while view == 'yes':
+            ctx = input('Enter a keyword for the jokes: ').lower()
+            count = input('How many jokes do you want?: ')
+            if not count:
+                count = 5
+            res = search(ctx, count)
+            if len(res):
+                print(
+                    colored(f'Okay there were {len(res)} jokes about {ctx}...', color='green'))
+                data = "\n".join(res)
+                print(colored(data, color='yellow'))
+                view = input(
+                    'Would you like to continue browsing the jokes?(yes/no): ')
+            else:
+                print(
+                    colored(f"Uh oh there weren't any jokes containing {ctx}", color='red'))
+                view = input('Would you like to try again?(yes/no): ')
+    except not view:
+        view = 'no'
 
 
 def options():
@@ -38,7 +41,7 @@ def options():
     return options
 
 
-def selectOption(option):
+def selectOption(option: str = 'getjokes'):
     selection = {
         'getJokes': generate_jokes()
     }
@@ -46,11 +49,14 @@ def selectOption(option):
 
 
 def main():
-    print(colored(pyfiglet.figlet_format("Blitz jokes 1.0.1"), color='red'))
-    option = input(colored(
-        f'HELLO THERE! What would you like to do?{options()}: ', color='yellow'))
-    selectOption(option)
-    return colored('Thanks for using Blitz jokes!', color='green')
+    try:
+        print(colored(pyfiglet.figlet_format("Blitz jokes 1.0.1"), color='red'))
+        option = input(colored(
+            f'HELLO THERE! What would you like to do?{options()}: ', color='yellow'))
+        selectOption(option)
+        return colored('Thanks for using Blitz jokes!', color='green')
+    except:
+        return colored('Oh dear it looks like something went wrong...try again later :/', color='red')
 
 
 print(main())

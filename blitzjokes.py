@@ -32,7 +32,7 @@ def generate_jokes():
                 print(
                     colored(f"Uh oh there weren't any jokes containing {ctx}", color='red'))
                 view = input('Would you like to try again?(yes/no): ')
-    except not view:
+    except ValueError:
         view = 'no'
 
 

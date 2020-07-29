@@ -1,7 +1,7 @@
 import requests
 from termcolor import colored
 import pyfiglet
-
+import time
 
 def search(ctx, limit):
     url = 'https://icanhazdadjoke.com/search'
@@ -53,10 +53,14 @@ def main():
         print(colored(pyfiglet.figlet_format("Blitz jokes 1.0.1"), color='red'))
         option = input(colored(
             f'HELLO THERE! What would you like to do?{options()}: ', color='yellow'))
-        selectOption(option)
+        print(selectOption(option))
         return colored('Thanks for using Blitz jokes!', color='green')
     except:
         return colored('Oh dear it looks like something went wrong...try again later :/', color='red')
 
 
-print(main())
+if __name__ == "__main__":
+    t = time.perf_counter()
+    main()
+    t2 = time.perf_counter() -1
+    print(f'This process took {t2:0.2f}')
